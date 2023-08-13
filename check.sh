@@ -54,9 +54,8 @@ fi
 
 
 #Check if the result is number, else alert by email
-if [[  $nodenumber == ?(-)+([[:digit:]]) ]]
-   then
- echo `date '+%Y-%m-%d %T'` $nodetype Node  is online  >> /var/log/nodecheck.log
+if [[  $nodenumber == ?(-)+([[:digit:]]) ]]; then
+  echo `date '+%Y-%m-%d %T'` $nodetype Node  is online  >> /var/log/nodecheck.log
   #flag_status=`cat $FLAG_FILE`
   echo "1" > $FLAG_FILE
 else
@@ -68,11 +67,10 @@ else
     touch $FLAG_FILE
   fi
      NEW_VALUE=$(( $(cat "$FLAG_FILE") + 1)) && echo "$NEW_VALUE" > "$FLAG_FILE"
-fi
+  fi
 
-if [[ $public_api_number == ?(-)+([[:digit:]]) ]]
-   then
- echo `date '+%Y-%m-%d %T'` $nodetype Public Api  is online  >> /var/log/nodecheck.log
+if [[ $public_api_number == ?(-)+([[:digit:]]) ]]; then
+  echo `date '+%Y-%m-%d %T'` $nodetype Public Api  is online  >> /var/log/nodecheck.log
   #flag_status=`cat $FLAG_FILE2`
   echo "1" > $FLAG_FILE2
 else
@@ -82,7 +80,7 @@ else
     echo "Public Api is not reachable, please check it.... '" |mail -s "Public Api is offline" -r "node@yourdomain.com" -S smtp=smtp://your_smpt_server_ip alert@yourdomain.com
     touch $FLAG_FILE2
   fi
-     NEW_VALUE=$(( $(cat "$FLAG_FILE2") + 1)) && echo "$NEW_VALUE" > "$FLAG_FILE2"
+    NEW_VALUE=$(( $(cat "$FLAG_FILE2") + 1)) && echo "$NEW_VALUE" > "$FLAG_FILE2"
 fi
 
 #Compare results and get difference
@@ -91,7 +89,7 @@ difference=$(echo $(( $public_api_number - $nodenumber )))
 
 #If difference more than 50 blocks between your node and Public Api then alert by email
 if [ $difference -lt $threshold ]; then
- echo `date '+%Y-%m-%d %T'` $nodetype Node  is online and sync  >> /var/log/nodecheck.log
+  echo `date '+%Y-%m-%d %T'` $nodetype Node  is online and sync  >> /var/log/nodecheck.log
   #flag_status=`cat $FLAG_FILE3`
   echo "1" > $FLAG_FILE3
 else
@@ -101,7 +99,7 @@ else
     echo "Your $nodetype Node is not sync.... $nodetype Public Api lastblock number is: $public_api_number, Your  $nodetype Node lastblock number is $nodenumber'" |mail -s "Node Sync Problem" -r "node@yourdomain.com" -S smtp=smtp://your_smpt_server_ip alert@yourdomain.com
     touch $FLAG_FILE3
   fi
-     NEW_VALUE=$(( $(cat "$FLAG_FILE3") + 1)) && echo "$NEW_VALUE" > "$FLAG_FILE3"
+    NEW_VALUE=$(( $(cat "$FLAG_FILE3") + 1)) && echo "$NEW_VALUE" > "$FLAG_FILE3"
 fi
 
 exit 0
