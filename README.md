@@ -5,3 +5,6 @@ If two block numbers are not equal then it will let you know that your node is n
 
 ### eth-bsc-avaxc-trone-node-check.sh
 This script check Aws linux instances disk status
+
+### delete_old_elasticsearch_index.sh
+This script deletes old elasticsearch indexes if your indexes are daily or time based.
