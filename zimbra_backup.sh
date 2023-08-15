@@ -25,7 +25,7 @@ fi
 #sync zimbra directory to aws s3
 cd $CWD
 #aws s3 sync . s3://s3url/backup/zimbra --delete --exclude '/opt/zimbra/data/ldap/mdb/db/*'
-rsync -e "ssh -i /opt/zimbra/backup/backup_sm -o StrictHostKeyChecking=no" -avzHP --exclude 'mdb' --delete  /opt/zimbra/ root@your_ip:/backup/zimbra/
+rsync -e "ssh -i your_private_key -o StrictHostKeyChecking=no" -avzHP --exclude 'mdb' --delete  /opt/zimbra/ root@your_ip:/backup/zimbra/
 
 #start zimbra services
 su - zimbra -c "zmcontrol start"
