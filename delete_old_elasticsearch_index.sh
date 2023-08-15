@@ -15,7 +15,9 @@ es_host="https://127.0.0.1:9200"
    if [[ $i < $tarih ]];
     then
       curl -s --insecure -u elastic:your_elastic_password -XDELETE "https://127.0.0.1:9200/index_name-$i"
-      echo $i index deleted
+      #if you want to close it use below command
+      #curl -s --insecure -u elastic:your_elastic_password -XPOST "https://127.0.0.1:9200/index_name-$i/_close"
+      echo $i index deleted or closed
    else
       exit
    fi;
