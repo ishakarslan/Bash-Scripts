@@ -1,4 +1,4 @@
-!!#!/bin/bash
+#!/bin/bash
 
 #This script checks zimbra services, if a service is not running it will alert by email.
 
